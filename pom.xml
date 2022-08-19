@@ -36,7 +36,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Dependency versions -->
-        <spring-boot.version>2.7.3</spring-boot.version>
         <testcontainers.version>1.17.3</testcontainers.version>
         <jooq-parent.version>3.17.3</jooq-parent.version>
         <moneta.version>1.4.2</moneta.version>
