@@ -235,10 +235,10 @@
                 <configuration>
                     <args>
                         <arg>--all-projects</arg>
+                        <arg>--severity-threshold=high</arg>
                     </args>
                     <cli>
                         <updatePolicy>always</updatePolicy>
-                        <arg>--severity-threshold=high</arg>
                     </cli>
                 </configuration>
             </plugin>
