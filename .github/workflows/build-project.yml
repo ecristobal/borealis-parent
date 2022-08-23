@@ -9,7 +9,7 @@ jobs:
     name: Build Borealis parent project
     runs-on: ubuntu-latest
     env:
-      SNYK_TOKEN: {{secrets.SNYK_TOKEN}}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - uses: actions/checkout@v3
 
