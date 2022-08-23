@@ -15,8 +15,24 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
           cache: 'maven'
 
-      - name: Build Maven artifacts
+      - name: Build parent project artifact
         run: ./mvnw -B clean verify
+
+      - name: Verify sample project
+        run: ./mvnw -B -f sample-project/pom.xml clean verify
+
+      - name: Check for vulnerabilities
+        uses: snyk/actions/maven@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Upload vulnerability scan result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
