@@ -49,6 +49,7 @@
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <checkstyle.version>10.3.2</checkstyle.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+        <snyk-maven-plugin.version>2.1.1</snyk-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -225,6 +226,31 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.snyk</groupId>
+                <artifactId>snyk-maven-plugin</artifactId>
+                <version>${snyk-maven-plugin.version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>snyk-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>snyk-monitor</id>
+                        <goals>
+                            <goal>monitor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <args>
+                        <arg>--all-projects</arg>
+                    </args>
+                </configuration>
             </plugin>
             <!-- Utilities -->
             <plugin>
