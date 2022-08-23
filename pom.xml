@@ -232,11 +232,29 @@
                 <artifactId>snyk-maven-plugin</artifactId>
                 <version>${snyk-maven-plugin.version}</version>
                 <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>snyk-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <args>
+                                <arg>--sarif-file-output=snyk.sarif</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>snyk-monitor</id>
+                        <goals>
+                            <goal>monitor</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <args>
                         <arg>--all-projects</arg>
                         <arg>--severity-threshold=high</arg>
-                        <arg>--sarif-file-output=snyk.sarif</arg>
                     </args>
                     <cli>
                         <updatePolicy>always</updatePolicy>
