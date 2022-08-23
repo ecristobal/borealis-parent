@@ -24,13 +24,13 @@ jobs:
       - name: Verify sample project
         run: ./mvnw -B -f sample-project/pom.xml clean verify
 
-      - name: Check for vulnerabilities
+      - name: Check for vulnerabilities on sample project
         uses: snyk/actions/maven@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
+          args: --sarif-file-output=snyk.sarif --file=sample-project/pom.xml
 
       - name: Upload vulnerability scan result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
