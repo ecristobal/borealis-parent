@@ -249,6 +249,7 @@
                         <goals>
                             <goal>monitor</goal>
                         </goals>
+                        <phase>package</phase>
                     </execution>
                 </executions>
                 <configuration>

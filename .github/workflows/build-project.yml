@@ -19,7 +19,7 @@ jobs:
           cache: 'maven'
 
       - name: Build parent project artifact
-        run: ./mvnw -B clean verify
+        run: ./mvnw -B clean package
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -28,7 +28,7 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
-      - name: Verify sample project
-        run: ./mvnw -B -f sample-project/pom.xml clean verify
+      - name: Test building sample project
+        run: ./mvnw -B -f sample-project/pom.xml clean package
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
