@@ -38,7 +38,7 @@ jobs:
           cache: 'maven'
 
       - name: Check for vulnerabilities
-        run: ./mvnw snyk:test && ./mvnw snyk:monitor
+        run: ./mvnw snyk:test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -46,3 +46,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+
+      - name: Upload vulnerability scan result to Snyk
+        run: ./mvnw snyk:monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
