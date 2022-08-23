@@ -232,24 +232,14 @@
                 <artifactId>snyk-maven-plugin</artifactId>
                 <version>${snyk-maven-plugin.version}</version>
                 <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>snyk-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>snyk-monitor</id>
-                        <goals>
-                            <goal>monitor</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <args>
                         <arg>--all-projects</arg>
                     </args>
+                    <cli>
+                        <updatePolicy>always</updatePolicy>
+                        <arg>--severity-threshold=high</arg>
+                    </cli>
                 </configuration>
             </plugin>
             <!-- Utilities -->

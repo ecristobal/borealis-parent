@@ -8,8 +8,6 @@ jobs:
   build-project:
     name: Build Borealis parent project
     runs-on: ubuntu-latest
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - uses: actions/checkout@v3
 
@@ -25,6 +23,11 @@ jobs:
 
       - name: Verify sample project
         run: ./mvnw -B -f sample-project/pom.xml clean verify
+
+      - name: Check for vulnerabilities
+        run: ./mvnw snyk:test && ./mvnw snyk:monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Upload vulnerability scan result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
