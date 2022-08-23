@@ -236,6 +236,7 @@
                     <args>
                         <arg>--all-projects</arg>
                         <arg>--severity-threshold=high</arg>
+                        <arg>--sarif-file-output=snyk.sarif</arg>
                     </args>
                     <cli>
                         <updatePolicy>always</updatePolicy>
