@@ -24,8 +24,20 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+  delete-old-versions:
+    needs: release-artifact
+    name: Delete old artifact versions from artifact repository
+    runs-on: ubuntu-latest
+    steps:
       - name: Remove old artifact versions
         uses: actions/delete-package-versions@v3
         with:
           package-name: 'es.borealis.daycare.center.borealis-parent'
           min-versions-to-keep: 2
+
+  update-release-page:
+    needs: release-artifact
+    name: Update release page
+    runs-on: ubuntu-latest
+    steps:
+    # TODO Add step to update release page
