@@ -50,6 +50,7 @@
         <checkstyle.version>10.3.2</checkstyle.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
         <snyk-maven-plugin.version>2.1.1</snyk-maven-plugin.version>
+        <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
     </properties>
 
     <dependencyManagement>
@@ -136,15 +137,27 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <configuration>
+                            <rules>
+                                <banDuplicatePomDependencyVersions/>
+                                <dependencyConvergence/>
+                                <reactorModuleConvergence/>
+                                <banCircularDependencies/>
+                                <requireEncoding>
+                                    <encoding>UTF-8</encoding>
+                                    <includes>src/**</includes>
+                                </requireEncoding>
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <rules>
-                        <banDuplicatePomDependencyVersions/>
-                        <dependencyConvergence/>
-                        <reactorModuleConvergence/>
-                    </rules>
-                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>${extra-enforcer-rules.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <!-- Packaging -->
             <plugin>
