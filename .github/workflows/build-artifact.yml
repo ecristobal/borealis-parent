@@ -2,13 +2,13 @@ name: Build parent project
 
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
       - 'dependabot/**'
   pull_request:
 
 jobs:
-  build-project:
-    name: Build Borealis parent project
+  build-artifact:
+    name: Build Borealis parent artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
 
-      - name: Build parent project artifact
+      - name: Build artifact
         run: ./mvnw -B clean package
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
