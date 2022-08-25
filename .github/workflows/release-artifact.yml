@@ -1,9 +1,8 @@
 name: Build parent project
 
 on:
-  push:
-    tags:
-      - 'v**'
+  release:
+    types: [published]
 
 jobs:
   release-artifact:
@@ -34,10 +33,3 @@ jobs:
         with:
           package-name: 'es.borealis.daycare.center.borealis-parent'
           min-versions-to-keep: 2
-
-  update-release-page:
-    needs: release-artifact
-    name: Update release page
-    runs-on: ubuntu-latest
-    steps:
-    # TODO Add step to update release page
