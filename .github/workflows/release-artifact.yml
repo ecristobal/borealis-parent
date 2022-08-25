@@ -1,4 +1,4 @@
-name: Build parent project
+name: Release parent artifact
 
 on:
   release:
