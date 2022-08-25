@@ -45,7 +45,7 @@ jobs:
       - name: Prepare artifact release
         run: |
           ./mvnw -B release:prepare \
-          -DreleaseVersion=${{ steps.generate€versions.outputs.release }} \
-          -DdevelopmentVersion=${{ steps.generate€versions.outputs.development }}
+          -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
+          -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
