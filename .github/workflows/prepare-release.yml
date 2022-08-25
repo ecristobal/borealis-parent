@@ -1,9 +1,17 @@
 name: Prepare new version release
 
 on:
-  push:
-    branches:
-      - 'main'
+  workflow_dispatch:
+    inputs:
+      bumpVersion:
+        description: 'Version to bump'
+        required: true
+        default: 'Incremental'
+        type: choice
+        options:
+        - Major
+        - Minor
+        - Incremental
 
 jobs:
   prepare-release:
@@ -27,10 +35,17 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
+          
+      - name: Generate release and development version numbers
+        id: generate-versions
+        run: |
+          echo "::set-output name=release::1.0.0" #TODO Update based on input
+          echo "::set-output name=development::1.0.1" #TODO Update based on input
 
       - name: Prepare artifact release
-        run: ./mvnw -B release:prepare
+        run: |
+          ./mvnw -B release:prepare \
+          -DreleaseVersion=${{ steps.generate€versions.outputs.release }} \
+          -DdevelopmentVersion=${{ steps.generate€versions.outputs.development }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # TODO Create pre-release page in GitHub
