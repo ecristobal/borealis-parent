@@ -63,3 +63,4 @@ jobs:
           -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
