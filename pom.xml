@@ -49,7 +49,6 @@
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
         <checkstyle.version>10.3.3</checkstyle.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-        <snyk-maven-plugin.version>2.1.1</snyk-maven-plugin.version>
         <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
         <maven-help-plugin.version>3.3.0</maven-help-plugin.version>
     </properties>
@@ -249,22 +248,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.snyk</groupId>
-                <artifactId>snyk-maven-plugin</artifactId>
-                <version>${snyk-maven-plugin.version}</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <args>
-                        <arg>--sarif-file-output=snyk.sarif</arg>
-                        <arg>--all-projects</arg>
-                        <arg>--severity-threshold=high</arg>
-                    </args>
-                    <cli>
-                        <updatePolicy>always</updatePolicy>
-                    </cli>
-                </configuration>
             </plugin>
             <!-- Utilities -->
             <plugin>
