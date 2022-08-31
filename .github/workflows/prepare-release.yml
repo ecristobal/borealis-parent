@@ -6,7 +6,7 @@ on:
       release-type:
         description: 'Changes to release'
         required: true
-        default: 'Incremental'
+        default: 'Breaking'
         type: choice
         options:
         - Breaking
