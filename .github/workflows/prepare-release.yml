@@ -51,7 +51,7 @@ jobs:
                   NEXT_INCREMENTAL_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextIncrementalVersion -q -DforceStdout);; \
           esac
           CURRENT_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout)
-          RELEASE_VERSION=${CURRENT_VERSION%"-SNAPSHOT}
+          RELEASE_VERSION=${CURRENT_VERSION%"-SNAPSHOT"}
           DEVELOPMENT_VERSION=$NEXT_MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION-SNAPSHOT
           echo "::set-output name=release::$RELEASE_VERSION"
           echo "::set-output name=development::$DEVELOPMENT_VERSION"
