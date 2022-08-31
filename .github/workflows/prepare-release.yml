@@ -9,9 +9,9 @@ on:
         default: 'Breaking'
         type: choice
         options:
-          - Breaking
-          - Non-breaking
-          - Bugfix
+        - Breaking
+        - Non-breaking
+        - Bugfix
 
 jobs:
   prepare-release:
@@ -27,6 +27,11 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
           server-id: github
+
+      - name: Configure Git User
+        run: |
+          git config user.email "ecristobalr@gmail.com"
+          git config user.name "GitHub Actions on behave of Esteban Cristóbal"
 
       - name: Generate release and development version numbers
         id: generate-versions
