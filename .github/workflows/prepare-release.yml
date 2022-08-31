@@ -31,7 +31,7 @@ jobs:
       - name: Configure Git User
         run: |
           git config user.email "ecristobalr@gmail.com"
-          git config user.name "GitHub Actions on behave of Esteban Cristóbal"
+          git config user.name "GitHub Actions on behalf of Esteban Cristóbal"
 
       - name: Generate release and development version numbers
         id: generate-versions
