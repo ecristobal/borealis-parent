@@ -66,11 +66,6 @@ jobs:
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
 
-      - name: Update parent version on sample project
-        run: |
-          cd sample-project
-          mvn versions:update-parent -DparentVersion=${{ steps.generate-versions.outputs.development }}
-
       - name: Push main branch
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
