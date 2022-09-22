@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
 
-      - name: Build artifact
+      - name: Build & Deploy snapshot
         run: ./mvnw -B deploy
 
   check-vulnerabilities:
