@@ -46,6 +46,7 @@ jobs:
           git config user.name "ecristobal"
           git config user.signingkey 2AC107259C09A885
           git config commit.gpgsign true
+          git config tag.gpgSign true
 
       - name: Generate release and development version numbers
         id: generate-versions
