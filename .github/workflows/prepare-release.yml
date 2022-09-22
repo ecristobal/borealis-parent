@@ -67,7 +67,7 @@ jobs:
           -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
 
       - name: Push main branch
-        run: git push origin main --force
+        run: git push origin master --force
 
       - name: Push tag v${{ steps.generate-versions.outputs.release }}
         run: git push origin v${{ steps.generate-versions.outputs.release }}
