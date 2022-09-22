@@ -2,7 +2,7 @@ name: Release parent artifact
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   release-artifact:

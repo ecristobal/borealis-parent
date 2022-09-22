@@ -82,3 +82,9 @@ jobs:
 
       - name: Push tag v${{ steps.generate-versions.outputs.release }}
         run: git push origin v${{ steps.generate-versions.outputs.release }}
+
+      - name: Create release draft in Github
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          tag: v${{ steps.generate-versions.outputs.release }}
