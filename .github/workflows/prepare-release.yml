@@ -16,7 +16,6 @@ on:
 jobs:
   prepare-release:
     name: Prepare Borealis parent artifact release
-    needs: [ build-artifact ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
