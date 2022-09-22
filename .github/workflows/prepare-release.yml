@@ -16,7 +16,7 @@ on:
 jobs:
   build-artifact:
     name: Build parent project artifact
-    uses: ./.github/workflows/build-artifact.yml@main
+    uses: ./.github/workflows/build-artifact.yml
     secrets: inherit
 
   prepare-release:
