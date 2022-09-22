@@ -14,11 +14,6 @@ on:
           - Bugfix
 
 jobs:
-  build-artifact:
-    name: Build parent project artifact
-    uses: ./.github/workflows/build-artifact.yml
-    secrets: inherit
-
   prepare-release:
     name: Prepare Borealis parent artifact release
     needs: [ build-artifact ]
