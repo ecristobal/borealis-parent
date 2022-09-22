@@ -5,7 +5,7 @@ on:
     types: [ published ]
 
 jobs:
-  release-artifact:
+  build-release:
     name: Release Borealis parent artifact
     runs-on: ubuntu-latest
     steps:
@@ -20,11 +20,28 @@ jobs:
 
       - name: Build & Deploy artifact
         run: ./mvnw -B deploy
+
+  check-vulnerabilities:
+    name: Check vulnerabilities with Snyk
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Upload vulnerability scan result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
 
   delete-old-versions:
-    needs: release-artifact
+    needs: build-release
     name: Delete old artifact versions from artifact repository
     runs-on: ubuntu-latest
     steps:
@@ -32,4 +49,4 @@ jobs:
         uses: actions/delete-package-versions@v3
         with:
           package-name: 'es.borealis.daycare.center.borealis-parent'
-          min-versions-to-keep: 2
+          min-versions-to-keep: 4

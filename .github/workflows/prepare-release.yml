@@ -88,3 +88,4 @@ jobs:
         with:
           draft: true
           tag: v${{ steps.generate-versions.outputs.release }}
+          generateReleaseNotes: true
