@@ -62,12 +62,20 @@ jobs:
 
       - name: Prepare artifact release
         run: |
-          ./mvnw -B release:prepare \
+          ./mvnw -B release:prepare release:clean \
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
 
-      - name: Push changes
+      - name: Update parent version on sample project
+        run: |
+          cd sample-project
+          mvn versions:update-parent -DparentVersion=${{ steps.generate-versions.outputs.development }}
+
+      - name: Push main branch
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Bumping project versions
+          commit_message: Updated project version
           push_options: '--force'
+
+      - name: Push tag v${{ steps.generate-versions.outputs.release }}
+        run: git push origin v${{ steps.generate-versions.outputs.release }}
