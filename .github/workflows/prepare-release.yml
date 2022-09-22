@@ -32,10 +32,20 @@ jobs:
           cache: 'maven'
           server-id: github
 
-      - name: Configure Git User
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Configure Git
         run: |
           git config user.email "ecristobalr@gmail.com"
-          git config user.name "GitHub Actions on behalf of Esteban Cristóbal"
+          git config user.name "ecristobal"
+          git config user.signingkey 2AC107259C09A885
+          git config commit.gpgsign true
 
       - name: Generate release and development version numbers
         id: generate-versions

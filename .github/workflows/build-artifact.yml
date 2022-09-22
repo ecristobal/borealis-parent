@@ -23,9 +23,6 @@ jobs:
       - name: Build artifact
         run: ./mvnw -B clean package
 
-      - name: Test building sample project
-        run: ./mvnw -B -f sample-project/pom.xml clean package
-
   check-vulnerabilities:
     name: Check vulnerabilities with Snyk
     runs-on: ubuntu-latest
