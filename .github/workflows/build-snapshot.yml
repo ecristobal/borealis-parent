@@ -21,6 +21,8 @@ jobs:
 
       - name: Build & Deploy snapshot
         run: ./mvnw -B deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check-vulnerabilities:
     name: Check vulnerabilities with Snyk
