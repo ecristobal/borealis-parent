@@ -41,9 +41,3 @@ jobs:
         with:
           package-name: 'es.borealis.daycare.center.borealis-parent'
           min-versions-to-keep: 4
-
-      - name: Remove sample artifact versions
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'es.borealis.daycare.center.sample-project'
-          min-versions-to-keep: 0
