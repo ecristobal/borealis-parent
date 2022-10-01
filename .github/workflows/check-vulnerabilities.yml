@@ -1,4 +1,4 @@
-name: Release parent artifact
+name: Check vulnerabilities
 
 on:
   workflow_call:
