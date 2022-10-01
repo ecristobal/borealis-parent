@@ -36,11 +36,12 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Dependency versions -->
+        <!-- Dependencies versions -->
         <spring-data-bom.version>2021.2.3</spring-data-bom.version>
         <spring.cloud-version>2021.0.4</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <testcontainers-bom.version>1.17.4</testcontainers-bom.version>
         <!-- Plugin versions -->
         <pitest-maven.version>1.9.5</pitest-maven.version>
         <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
@@ -55,7 +56,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring project BOMs -->
+            <!-- External BOMs -->
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-bom</artifactId>
@@ -74,6 +75,13 @@
                 <groupId>org.javamoney</groupId>
                 <artifactId>moneta</artifactId>
                 <version>${moneta.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
