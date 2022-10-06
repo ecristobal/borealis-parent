@@ -39,8 +39,9 @@
         <spring-data-bom.version>2021.2.3</spring-data-bom.version>
         <spring.cloud-version>2021.0.4</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
-        <mapstruct.version>1.5.2.Final</mapstruct.version>
         <testcontainers-bom.version>1.17.5</testcontainers-bom.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <karate.version>1.2.0</karate.version>
         <!-- Plugin versions -->
         <pitest-maven.version>1.9.7</pitest-maven.version>
         <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
@@ -89,6 +90,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.intuit.karate</groupId>
+                <artifactId>karate-junit5</artifactId>
+                <version>${karate.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
