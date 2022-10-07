@@ -11,9 +11,10 @@ on:
         options:
           - Minor
           - Incremental
-      base-version:
-        description: 'Base version'
+      source-tag:
+        description: 'Source tag'
         required: true
+        default: 'main'
         type: string
 
 jobs:
