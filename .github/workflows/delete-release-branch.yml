@@ -10,5 +10,7 @@ jobs:
     name: Delete release branch release/${{ github.ref_name }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Delete branch
         run: git push origin -d release/${{ github.ref_name }}
