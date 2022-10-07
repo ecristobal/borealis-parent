@@ -2,10 +2,11 @@ name: Prepare non-major version release
 
 on:
   workflow_dispatch:
-    version:
-      description: 'Release version to prepare'
-      required: true
-      type: string
+    inputs:
+      version:
+        description: 'Release version to prepare'
+        required: true
+        type: string
 
 jobs:
   prepare-release:
