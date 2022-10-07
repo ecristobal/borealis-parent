@@ -2,6 +2,10 @@ name: Prepare non-major version release
 
 on:
   workflow_dispatch:
+    version:
+      description: 'Release version to prepare'
+      required: true
+      type: string
 
 jobs:
   prepare-release:
@@ -13,6 +17,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
+          ref: release/v${{ inputs.version }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
