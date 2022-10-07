@@ -69,8 +69,8 @@ jobs:
           ./mvnw -B release:branch release:clean \
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DbranchName=${{ steps.generate-versions.outputs.branch-name }} \
-          -DupdateBranchVersions = true \
-          -DupdateWorkingCopyVersions = false
+          -DupdateBranchVersions=true \
+          -DupdateWorkingCopyVersions=false
 
       - name: Push ${{ steps.generate-versions.outputs.branch-name }} branch
         run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
