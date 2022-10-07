@@ -50,7 +50,7 @@ jobs:
       - name: Generate new release version and branch names
         id: generate-versions
         run: |
-          NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout)
+          MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout)
           case ${{ github.event.inputs.release-type }} in \
               "Minor" ) \
                   NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextMinorVersion -q -DforceStdout) \
@@ -59,7 +59,7 @@ jobs:
                   NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.minorVersion -q -DforceStdout) \
                   NEXT_INCREMENTAL_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextIncrementalVersion -q -DforceStdout);; \
           esac
-          RELEASE_VERSION=$NEXT_MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION
+          RELEASE_VERSION=$MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION
           BRANCH_NAME=release/v$RELEASE_VERSION
           echo "::set-output name=release::$RELEASE_VERSION"
           echo "::set-output name=branch-name::$BRANCH_NAME"
@@ -80,6 +80,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           base: main
+          branch: ${{ steps.generate-versions.outputs.branch-name }}
           delete-branch: false
           title: 'Update version with last changes from main'
           reviewers: ecristobal
