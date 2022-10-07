@@ -1,0 +1,85 @@
+name: Create new non-major version release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: 'Release type'
+        required: true
+        default: 'Incremental'
+        type: choice
+        options:
+          - Minor
+          - Incremental
+
+jobs:
+  prepare-release:
+    name: Create new snapshot from tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: 'maven'
+          server-id: github
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Configure Git
+        run: |
+          git config user.email "ecristobalr@gmail.com"
+          git config user.name "ecristobal"
+          git config user.signingkey 2AC107259C09A885
+          git config commit.gpgsign true
+          git config tag.gpgSign true
+
+      - name: Generate new release version and branch names
+        id: generate-versions
+        run: |
+          NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout)
+          case ${{ github.event.inputs.release-type }} in \
+              "Minor" ) \
+                  NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextMinorVersion -q -DforceStdout) \
+                  NEXT_INCREMENTAL_VERSION=0;; \
+              "Incremental" ) \
+                  NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.minorVersion -q -DforceStdout) \
+                  NEXT_INCREMENTAL_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextIncrementalVersion -q -DforceStdout);; \
+          esac
+          RELEASE_VERSION=$NEXT_MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION
+          BRANCH_NAME=release/v$RELEASE_VERSION
+          echo "::set-output name=release::$RELEASE_VERSION"
+          echo "::set-output name=branch-name::$BRANCH_NAME"
+
+      - name: Create ${{ steps.generate-versions.outputs.branch-name }} branch
+        run: |
+          ./mvnw -B release:branch release:clean \
+          -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
+          -DbranchName=${{ steps.generate-versions.outputs.branch-name }} \
+          -DupdateBranchVersions = true \
+          -DupdateWorkingCopyVersions = false
+
+      - name: Push ${{ steps.generate-versions.outputs.branch-name }} branch
+        run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
+
+      - name: Create pull request from main
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT }}
+          branch: main
+          delete-branch: false
+          title: 'Update version with last changes from main'
+          reviewers: ecristobal

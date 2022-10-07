@@ -1,17 +1,7 @@
-name: Prepare new version release
+name: Prepare major version release
 
 on:
   workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Changes to release'
-        required: true
-        default: 'Bugfix'
-        type: choice
-        options:
-          - Breaking
-          - Non-breaking
-          - Bugfix
 
 jobs:
   prepare-release:
@@ -51,23 +41,10 @@ jobs:
       - name: Generate release and development version numbers
         id: generate-versions
         run: |
-          case ${{ github.event.inputs.release-type }} in \
-              "Breaking" ) \
-                  NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextMajorVersion -q -DforceStdout) \
-                  NEXT_MINOR_VERSION=0 \
-                  NEXT_INCREMENTAL_VERSION=0;; \
-              "Non-breaking" ) \
-                  NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout) \
-                  NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextMinorVersion -q -DforceStdout) \
-                  NEXT_INCREMENTAL_VERSION=0;; \
-              "Bugfix" ) \
-                  NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout) \
-                  NEXT_MINOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.minorVersion -q -DforceStdout) \
-                  NEXT_INCREMENTAL_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextIncrementalVersion -q -DforceStdout);; \
-          esac
+          NEXT_MAJOR_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=parsedVersion.nextMajorVersion -q -DforceStdout)
           CURRENT_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout)
           RELEASE_VERSION=${CURRENT_VERSION%"-SNAPSHOT"}
-          DEVELOPMENT_VERSION=$NEXT_MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION-SNAPSHOT
+          DEVELOPMENT_VERSION=$NEXT_MAJOR_VERSION.0.0-SNAPSHOT
           echo "::set-output name=release::$RELEASE_VERSION"
           echo "::set-output name=development::$DEVELOPMENT_VERSION"
 

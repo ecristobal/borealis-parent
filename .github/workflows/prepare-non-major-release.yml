@@ -1,0 +1,65 @@
+name: Prepare non-major version release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare-release:
+    name: Prepare Borealis parent artifact release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: 'maven'
+          server-id: github
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Configure Git
+        run: |
+          git config user.email "ecristobalr@gmail.com"
+          git config user.name "ecristobal"
+          git config user.signingkey 2AC107259C09A885
+          git config commit.gpgsign true
+          git config tag.gpgSign true
+
+      - name: Generate release version number
+        id: generate-versions
+        run: |
+          CURRENT_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout)
+          RELEASE_VERSION=${CURRENT_VERSION%"-SNAPSHOT"}
+          echo "::set-output name=release::$RELEASE_VERSION"
+
+      - name: Prepare artifact release
+        run: |
+          ./mvnw -B release:prepare release:clean \
+          -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
+          -DupdateWorkingCopyVersions=false
+
+      - name: Push ${{ github.ref_name }} branch
+        run: git push origin ${{ github.ref_name }} --force
+
+      - name: Push tag v${{ steps.generate-versions.outputs.release }}
+        run: git push origin v${{ steps.generate-versions.outputs.release }}
+
+      - name: Create release draft in Github
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          tag: v${{ steps.generate-versions.outputs.release }}
+          generateReleaseNotes: true
