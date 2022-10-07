@@ -57,8 +57,8 @@ jobs:
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DupdateWorkingCopyVersions=false
 
-      - name: Push ${{ github.ref_name }} branch
-        run: git push origin ${{ github.ref_name }} --force
+      - name: Push release/v${{ inputs.version }} branch
+        run: git push origin release/v${{ inputs.version }} --force
 
       - name: Push tag v${{ steps.generate-versions.outputs.release }}
         run: git push origin v${{ steps.generate-versions.outputs.release }}
