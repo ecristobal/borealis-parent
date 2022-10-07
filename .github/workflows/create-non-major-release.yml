@@ -79,7 +79,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PAT }}
-          branch: main
+          base: main
           delete-branch: false
           title: 'Update version with last changes from main'
           reviewers: ecristobal
