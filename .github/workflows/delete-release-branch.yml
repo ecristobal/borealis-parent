@@ -1,0 +1,14 @@
+name: Delete release branch
+
+on:
+  release:
+    types: [ published ]
+
+
+jobs:
+  delete-branch:
+    name: Delete release branch release/${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete branch
+        run: git push origin -d release/${{ github.ref_name }}
