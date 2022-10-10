@@ -82,11 +82,8 @@ jobs:
         run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
 
       - name: Create pull request from main
-        uses: peter-evans/create-pull-request@v4
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.PAT }}
-          branch: main
-          base: ${{ steps.generate-versions.outputs.branch-name }}
-          delete-branch: false
-          title: 'Update version with last changes from main'
-          reviewers: ecristobal
+          source_branch: 'main'
+          destination_branch: ${{ steps.generate-versions.outputs.branch-name }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
