@@ -83,6 +83,7 @@ jobs:
 
       - name: Create pull request from main
         run: |
+          git checkout ${{ steps.generate-versions.outputs.branch-name }}
           gh pr create -B main -t "Get last changes from main branch" \
           -b "Update previous version with last changes pushed to main branch"
         env:
