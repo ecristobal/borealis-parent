@@ -26,11 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  check-vulnerabilities:
-    name: Check vulnerabilities with Snyk
-    uses: ./.github/workflows/check-vulnerabilities.yml
-    secrets: inherit
-
   delete-versions:
     needs: build-release
     name: Delete old artifact versions from artifact repository

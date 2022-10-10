@@ -22,9 +22,4 @@ jobs:
           cache: 'maven'
 
       - name: Build artifact
-        run: ./mvnw -B clean package
-
-  check-vulnerabilities:
-    name: Check vulnerabilities with Snyk
-    uses: ./.github/workflows/check-vulnerabilities.yml
-    secrets: inherit
+        run: ./mvnw -B clean verify
