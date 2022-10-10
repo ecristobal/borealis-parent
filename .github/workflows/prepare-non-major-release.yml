@@ -56,6 +56,8 @@ jobs:
           ./mvnw -B release:prepare release:clean \
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DupdateWorkingCopyVersions=false
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Push release/v${{ inputs.version }} branch
         run: git push origin release/v${{ inputs.version }} --force

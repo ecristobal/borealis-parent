@@ -53,6 +53,8 @@ jobs:
           ./mvnw -B release:prepare release:clean \
           -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
           -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Push main branch
         run: git push origin ${{ github.ref_name }} --force
