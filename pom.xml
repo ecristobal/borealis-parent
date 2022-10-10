@@ -18,7 +18,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/ecristobal/borealis-parent.git</connection>
-        <tag>release/v0.1.0</tag>
+        <tag>v0.0.1</tag>
     </scm>
 
     <distributionManagement>
@@ -40,17 +40,16 @@
         <spring.cloud-version>2021.0.4</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
         <testcontainers-bom.version>1.17.5</testcontainers-bom.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
         <karate.version>1.2.0</karate.version>
         <!-- Plugin versions -->
-        <pitest-maven.version>1.9.8</pitest-maven.version>
+        <pitest-maven.version>1.9.7</pitest-maven.version>
         <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
         <checkstyle.version>10.3.4</checkstyle.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-        <snyk-maven-plugin.version>2.1.1</snyk-maven-plugin.version>
         <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
         <maven-help-plugin.version>3.3.0</maven-help-plugin.version>
     </properties>
@@ -208,7 +207,7 @@
                     <pushChanges>false</pushChanges>
                 </configuration>
             </plugin>
-            <!-- Code analysis -->
+            <!-- Code quality -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -258,31 +257,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.snyk</groupId>
-                <artifactId>snyk-maven-plugin</artifactId>
-                <version>${snyk-maven-plugin.version}</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>snyk-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>snyk-monitor</id>
-                        <goals>
-                            <goal>monitor</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <args>
-                        <arg>--all-projects</arg>
-                    </args>
-                </configuration>
             </plugin>
             <!-- Utilities -->
             <plugin>
