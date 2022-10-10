@@ -86,4 +86,4 @@ jobs:
           gh pr create -B main -t "Get last changes from main branch" \
           -b "Update previous version with last changes pushed to main branch"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }}
