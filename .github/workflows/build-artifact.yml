@@ -23,3 +23,5 @@ jobs:
 
       - name: Build artifact
         run: ./mvnw -B clean verify
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
