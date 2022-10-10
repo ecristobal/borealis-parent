@@ -80,10 +80,3 @@ jobs:
 
       - name: Push ${{ steps.generate-versions.outputs.branch-name }} branch
         run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
-
-      - name: Create pull request from main
-        run: |
-          gh pr create -H main -B ${{ steps.generate-versions.outputs.branch-name }} \
-          -t "Get last changes from main branch" -b "Update previous version with last changes pushed to main branch"
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
