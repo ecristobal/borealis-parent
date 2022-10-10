@@ -10,7 +10,7 @@
 
     <groupId>es.borealis.daycare.center</groupId>
     <artifactId>borealis-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Borealis Parent</name>
@@ -18,7 +18,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/ecristobal/borealis-parent.git</connection>
-        <tag>v0.0.1</tag>
+        <tag>release/v0.1.0</tag>
     </scm>
 
     <distributionManagement>
