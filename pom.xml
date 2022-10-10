@@ -282,7 +282,6 @@
                 <configuration>
                     <args>
                         <arg>--all-projects</arg>
-                        <arg>--sarif-file-output=snyk-maven.sarif</arg>
                     </args>
                 </configuration>
             </plugin>
