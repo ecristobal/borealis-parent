@@ -83,6 +83,7 @@ jobs:
       - name: Create pull request from main
         run: |
           git checkout -b main
-          gh pr create --base ${{ steps.generate-versions.outputs.branch-name }}
+          gh pr create -B ${{ steps.generate-versions.outputs.branch-name }} -t "Get last changes from main branch" \
+          -b "Update previous version with last changes pushed to main branch"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
