@@ -3,7 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-snyk.sarif
+snyk*.sarif
 
 ### IntelliJ IDEA ###
 .idea/

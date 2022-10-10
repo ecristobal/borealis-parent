@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
-          ref: ${{ inputs.base-version }}
+          ref: ${{ inputs.source-tag }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -82,11 +82,8 @@ jobs:
         run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
 
       - name: Create pull request from main
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.PAT }}
-          branch: main
-          base: ${{ steps.generate-versions.outputs.branch-name }}
-          delete-branch: false
-          title: 'Update version with last changes from main'
-          reviewers: ecristobal
+        run: |
+          gh pr create -H main -B ${{ steps.generate-versions.outputs.branch-name }} \
+          -t "Get last changes from main branch" -b "Update previous version with last changes pushed to main branch"
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
