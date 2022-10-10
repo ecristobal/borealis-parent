@@ -85,8 +85,8 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PAT }}
-          branch: ${{ steps.generate-versions.outputs.branch-name }}
-          base: main
+          branch: main
+          base: ${{ steps.generate-versions.outputs.branch-name }}
           delete-branch: false
           title: 'Update version with last changes from main'
           reviewers: ecristobal
