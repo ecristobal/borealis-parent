@@ -82,8 +82,6 @@ jobs:
         run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
 
       - name: Create pull request from main
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: 'main'
-          destination_branch: ${{ steps.generate-versions.outputs.branch-name }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout -b main
+          gh pr create --base ${{ steps.generate-versions.outputs.branch-name }}
