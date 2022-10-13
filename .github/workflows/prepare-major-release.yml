@@ -45,26 +45,26 @@ jobs:
           CURRENT_VERSION=$(./mvnw build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout)
           RELEASE_VERSION=${CURRENT_VERSION%"-SNAPSHOT"}
           DEVELOPMENT_VERSION=$NEXT_MAJOR_VERSION.0.0-SNAPSHOT
-          echo "::set-output name=release::$RELEASE_VERSION"
-          echo "::set-output name=development::$DEVELOPMENT_VERSION"
+          echo "release-version=$RELEASE_VERSION" >> $GITHUB_ENV
+          echo "development-version=$DEVELOPMENT_VERSION" >> $GITHUB_ENV
 
       - name: Prepare artifact release
         run: |
           ./mvnw -B release:prepare release:clean \
-          -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
-          -DdevelopmentVersion=${{ steps.generate-versions.outputs.development }}
+          -DreleaseVersion=${{ env.release-version }} \
+          -DdevelopmentVersion=${{ env.development-version }}
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Push main branch
         run: git push origin ${{ github.ref_name }} --force
 
-      - name: Push tag v${{ steps.generate-versions.outputs.release }}
-        run: git push origin v${{ steps.generate-versions.outputs.release }}
+      - name: Push tag v${{ env.release-version }}
+        run: git push origin v${{ env.release-version }}
 
       - name: Create release draft in Github
         uses: ncipollo/release-action@v1
         with:
           draft: true
-          tag: v${{ steps.generate-versions.outputs.release }}
+          tag: v${{ env.release-version }}
           generateReleaseNotes: true
