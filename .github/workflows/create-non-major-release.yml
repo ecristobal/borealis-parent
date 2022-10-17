@@ -30,7 +30,7 @@ jobs:
           ref: ${{ inputs.source-tag }}
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v3.5.1
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -67,23 +67,16 @@ jobs:
           esac
           RELEASE_VERSION=$MAJOR_VERSION.$NEXT_MINOR_VERSION.$NEXT_INCREMENTAL_VERSION
           BRANCH_NAME=release/v$RELEASE_VERSION
-          echo "::set-output name=release::$RELEASE_VERSION-SNAPSHOT"
-          echo "::set-output name=branch-name::$BRANCH_NAME"
+          echo "release-version=$RELEASE_VERSION-SNAPSHOT" >> $GITHUB_ENV
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: Create ${{ steps.generate-versions.outputs.branch-name }} branch
+      - name: Create ${{ env.branch-name }} branch
         run: |
           ./mvnw -B release:branch release:clean \
-          -DreleaseVersion=${{ steps.generate-versions.outputs.release }} \
-          -DbranchName=${{ steps.generate-versions.outputs.branch-name }} \
+          -DreleaseVersion=${{ env.release-version }} \
+          -DbranchName=${{ env.branch-name }} \
           -DupdateBranchVersions=true \
           -DupdateWorkingCopyVersions=false
 
-      - name: Push ${{ steps.generate-versions.outputs.branch-name }} branch
-        run: git push origin ${{ steps.generate-versions.outputs.branch-name }} --force
-
-      - name: Create pull request from main
-        run: |
-          gh pr create -H main -B ${{ steps.generate-versions.outputs.branch-name }} \
-          -t "Get last changes from main branch" -b "Update previous version with last changes pushed to main branch"
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
+      - name: Push ${{ env.branch-name }} branch
+        run: git push origin ${{ env.branch-name }} --force
