@@ -39,7 +39,6 @@
         <spring.cloud-version>2021.0.4</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
         <testcontainers-bom.version>1.17.5</testcontainers-bom.version>
-        <apache-beam.version>2.42.0</apache-beam.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <karate.version>1.2.0</karate.version>
         <!-- Plugin versions -->
@@ -85,22 +84,6 @@
                 <version>${testcontainers-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!-- Apache Beam dependencies -->
-            <dependency>
-                <groupId>org.apache.beam</groupId>
-                <artifactId>beam-sdks-java-core</artifactId>
-                <version>${apache-beam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.beam</groupId>
-                <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
-                <version>${apache-beam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.beam</groupId>
-                <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
-                <version>${apache-beam.version}</version>
             </dependency>
             <!-- Other dependencies -->
             <dependency>
