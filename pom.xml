@@ -47,7 +47,7 @@
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>10.3.4</checkstyle.version>
+        <checkstyle.version>10.4</checkstyle.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
         <snyk-maven-plugin.version>2.1.1</snyk-maven-plugin.version>
         <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
