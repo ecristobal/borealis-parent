@@ -11,8 +11,8 @@ on:
         options:
           - Minor
           - Incremental
-      source-tag:
-        description: 'Source tag'
+      source-version:
+        description: 'Source version'
         required: true
         default: 'main'
         type: string
@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
-          ref: ${{ inputs.source-tag }}
+          ref: v${{ inputs.source-version }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3.5.1
