@@ -39,7 +39,7 @@
         <spring-data-bom.version>2021.2.5</spring-data-bom.version>
         <spring.cloud-version>2021.0.5</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
-        <testcontainers-bom.version>1.17.5</testcontainers-bom.version>
+        <testcontainers-bom.version>1.17.6</testcontainers-bom.version>
         <avro.version>1.11.1</avro.version>
         <parquet.version>1.12.3</parquet.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
