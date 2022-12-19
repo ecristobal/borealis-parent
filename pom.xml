@@ -37,7 +37,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Dependencies versions -->
         <spring-data-bom.version>2022.0.0</spring-data-bom.version>
-        <spring.cloud-version>2021.0.5</spring.cloud-version>
+        <spring.cloud-version>2022.0.0</spring.cloud-version>
         <moneta.version>1.4.2</moneta.version>
         <testcontainers-bom.version>1.17.6</testcontainers-bom.version>
         <avro.version>1.11.1</avro.version>
